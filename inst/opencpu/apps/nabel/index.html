@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Nabel plot</title>
+	
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"> </script>
+	<link rel="stylesheet" href="http://view.jqueryui.com/selectmenu/demos/demos.css">
+		
+	<link rel="stylesheet" href="http://view.jqueryui.com/selectmenu/themes/base/jquery.ui.all.css">
+	<script src="http://view.jqueryui.com/selectmenu/ui/jquery.ui.core.js"></script>
+	<script src="http://view.jqueryui.com/selectmenu/ui/jquery.ui.widget.js"></script>
+	<script src="http://view.jqueryui.com/selectmenu/ui/jquery.ui.mouse.js"></script>
+	<script src="http://view.jqueryui.com/selectmenu/ui/jquery.ui.resizable.js"></script>
+	<script src="http://view.jqueryui.com/selectmenu/ui/jquery.ui.position.js"></script>
+	<script src="http://view.jqueryui.com/selectmenu/ui/jquery.ui.button.js"></script>
+	<script src="http://view.jqueryui.com/selectmenu/ui/jquery.ui.menu.js"></script>
+	<script src="http://view.jqueryui.com/selectmenu/ui/jquery.ui.selectmenu.js"></script>
+
+	<script src="nabel.js"> </script>
+	<style>
+		#plotdiv { width: 800px; height: 480px; padding: 0.5em; text-align:center; }
+		#plotdiv h3 { text-align: center; margin: 0; }
+		#plotdiv { display: block; float: left; margin-right: 10px;}
+		#paramform { margin-left: 10px}
+		select { width: 200px; margin-top: 5px; }
+		button { width: 90px; margin: 5px 5px 5px 5px;
+		.ui-resizable-helper { border: 1px dotted gray; }
+	</style>
+</head>
+<body>
+
+<div class="demo">
+
+	<div id="plotdiv" class="ui-widget-content">
+		<h3 class="ui-widget-header">Nabel plot</h3>
+		<img src="" alt="select plot parameters..." id="plotimg" />
+	</div>
+
+	<div id="paramdiv">
+		<form id="paramform">
+			<div id="stationdiv">
+				<input checked="checked" class="station" type="checkbox" id="1" /><label for="Bern">Bern-Bollwerk</label> <br />
+				<input class="station" type="checkbox" id="2" /><label for="Lausanne">Lausanne-César-Roux</label><br />
+				<input class="station" type="checkbox" id="3" /><label for="Lugano">Lugano-Università</label><br />
+				<input checked="checked" class="station" type="checkbox" id="4" /><label for="Zürich">Zürich-Kaserne</label><br />
+				<input checked="checked" class="station" type="checkbox" id="5" /><label for="Basel">Basel-Binningen</label><br />
+				<input class="station" type="checkbox" id="6" /><label for="Dübendorf">Dübendorf-Empa</label><br />
+				<input class="station" type="checkbox" id="7" /><label for="Härkingen">Härkingen-A1</label><br />
+				<input class="station" type="checkbox" id="8" /><label for="Sion">Sion-Aéroport-A9</label><br />
+				<input class="station" type="checkbox" id="9" /><label for="Magadino">Magadino-Cadenazzo</label><br />
+				<input class="station" type="checkbox" id="10" /><label for="Payerne">Payerne</label><br />
+				<input class="station" type="checkbox" id="11" /><label for="Tänikon">Tänikon</label><br />
+				<input class="station" type="checkbox" id="12" /><label for="Lägeren">Lägeren</label><br />
+				<input class="station" type="checkbox" id="13" /><label for="Chaumont">Chaumont</label><br />
+				<input class="station" type="checkbox" id="14" /><label for="Rigi">Rigi-Seebodenalp</label><br />
+				<input class="station" type="checkbox" id="15" /><label for="Davos">Davos-Seehornwald</label><br />
+				<input checked="checked" class="station" type="checkbox" id="16" /><label for="Jungfraujoch">Jungfraujoch</label><br />
+			</div>
+
+			<p>
+
+			<select name="pollutant" id="pollutant"> 
+			  <option value="o3">Ozone (O3)</option>
+			  <option value="no2">Nitrogen dioxide (NO2)</option>
+			  <option value="so2">Sulfur dioxide (SO2)</option>
+			  <option value="co">Carbon monoxide (CO)</option>
+			  <option value="pm10">Particulate matter (PM10)</option>
+			  <option value="pm1">Particulate matter (PM1)</option>
+			  <option value="cpc">Particulate number concentration (CPC)</option>
+			  <option value="nmvoc">Non-methane volatile organic compounds (NMVOC)</option>
+			  <option selected="selected" value="temp">Temperature (TEMP)</option>
+			  <option value="prec">Precipitation (PREC)</option>
+			  <option value="rad">Global radiation (RAD)</option>                  
+			</select>
+			
+			</p>
+			<p>
+			
+			<select id="interval">
+				<option selected="selected" value="hourly">Hourly</option>
+				<option value="daily">Daily</option>
+			</select>	
+			
+			</p>
+			<p>
+			
+			<select id="period">
+				<option value="day">Day</option>
+				<option selected="selected" value="week">Week</option>
+				<option value="month">Month</option>
+			</select>	
+			
+			</p>	
+			
+			<button id="plotbutton">Plot</button>
+			<button id="pdfbutton">Get PDF</button>
+		</form>
+	</div>
+</div>
+
+
+
+<div class="demo-description">
+<p>
+This page is an example of an <a href="http://www.opencpu.org" target="_blank">OpenCPU</a> app. It it part of the <i>opencpu.demo</i> package and uses the R-function <i>nabel</i>. 
+</p>
+
+<p>
+The nabel function create a lattice plot from live data provided by the <a href="http://www.bafu.admin.ch/luft/luftbelastung/blick_zurueck/datenabfrage/index.html?lang=en">Swiss National Air Pollution Monitoring Network.</a>. See also <a href="http://opencpu.org/2012/01/nabel/">this blog post</a> about this app.
+For the source code, help file, or other information, click on one of the links below.
+
+<ul>
+<li> Help file: <a href="/R/help/opencpu.demo/nabel">/R/help/opencpu.demo/nabel</a> </li>
+<li> Source code: <a href="/R/call/base/identity/ascii?x=opencpu.demo::nabel">/R/call/base/identity/ascii?x=opencpu.demo::nabel</a> </li>
+<li> CRAN package: <a href="http://cran.r-project.org/web/packages/opencpu.demo">cran.r-project.org/web/packages/opencpu.demo</a> </li>
+<li> OpenCPU Website: <a href="http://www.opencpu.org">www.opencpu.org</a> </li>
+</ul>
+
+</p>
+
+</div><!-- End demo-description -->
+
+</body>
+</html>

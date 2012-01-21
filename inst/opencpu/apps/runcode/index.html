@@ -1,0 +1,86 @@
+<html>
+	<head>
+		<title> Store Function Demo Page </title> 
+	</head>
+<body>
+
+<h2> Running a block of code by passing it to the identity function </h2>
+
+
+
+<p>
+This page illustrates how you can run code by passing a block of code to the identity function. Because the code is actually an argument it has to be wrapped in curly brackets (or accolades as we like to call them in Europe).
+</p>
+
+<p>
+Note that this page is not doing any magic or doing anything that cannot be infered from the official docs. 
+It is just to help you understand how OpenCPU works. 
+Please do have a look at the html code of the forms below to understand what is going on.
+</p>
+
+<h3> Run some code (retieve json) </h3>
+
+<form enctype="multipart/form-data" action="/R/call/base/identity/json" method="POST"> 
+
+<textarea name="x" rows="12" cols="80">
+{
+	total <- 0;
+	for(i in 1:100){
+	  total <- total + i^2;
+	}	
+	total;
+}
+</textarea>	
+
+<br />
+<br />
+
+<input type="submit" value="Run code" />
+</form>
+
+
+
+
+<h3> Run some code (retieve a png-plot) </h3>
+
+<form enctype="multipart/form-data" action="/R/call/base/identity/png" method="POST"> 
+
+<textarea name="x" rows="12" cols="80">
+{
+	x <- rnorm(1000)
+	print(hist(x))
+}
+
+</textarea>	
+
+<br />
+<br />
+
+<input type="submit" value="Run code" />
+</form>
+
+
+
+
+<h3> Run some code (save to store) </h3>
+
+<form enctype="multipart/form-data" action="/R/call/base/identity/save" method="POST"> 
+
+<textarea name="x" rows="12" cols="80">
+{
+	x <- rnorm(1000)
+	print(hist(x))
+	mymean <- mean(x)
+	mean
+}
+
+</textarea>	
+
+<br />
+<br />
+
+<input type="submit" value="Run code" />
+</form>
+
+</body>
+</html>
