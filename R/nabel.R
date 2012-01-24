@@ -40,7 +40,7 @@
 #'  \item Lägeren
 #'  \item Chaumont
 #'  \item Rigi-Seebodenalp
-#'  \item Davos-Seehornwald 
+#'  \item Davos-Seehornwald
 #'  \item Jungfraujoch
 #' }
 #'
@@ -55,7 +55,6 @@
 #' \code{Date} with \code{as.Date()} - e.g. in ISO 8601 format, i.e.
 #' YYYY-MM-DD).
 #'
-#' @usage nabel(pollutant, stations, interval, period, from, to)
 #' @param pollutant pollutant or meteorological variable to plot
 #' @param stations measurement stations (either by number or name) to include
 #' @param interval plot \code{hourly} or \code{daily} means
@@ -80,7 +79,7 @@
 #'       Sys.Date())
 #' }
 nabel <- function(pollutant = c("o3", "no2", "so2", "co", "nmvoc", "pm10", "pm1", "cpc", "temp", "prec", "rad"),
-		stations = 1:16,
+		stations = c("Bern-Bollwerk", "Lausanne-C\u00E9sar-Roux", "Lugano-Universit\u00E0", "Z\u00FCrich-Kaserne", "Basel-Binningen", "D\u00FCbendorf-Empa", "H\u00E4rkingen-A1", "Sion-A\u00E9roport-A9", "Magadino-Cadenazzo", "Payerne", "T\u00E4nikon", "L\u00E4geren", "Chaumont", "Rigi-Seebodenalp", "Davos-Seehornwald", "Jungfraujoch"),
 		interval = c("hourly", "daily"),
 		period = c("day", "week", "month", "free"),
 		from = NULL,
@@ -123,22 +122,20 @@ nabel <- function(pollutant = c("o3", "no2", "so2", "co", "nmvoc", "pm10", "pm1"
 			"month" = "1monat",
 			"free" = "frei")	
 	
-	if(is.numeric(stations)){
-		stations <- stationsliste[stations];
-	} else {
-		stations <- match.arg(stations, stationsliste, several.ok = TRUE);	
-	}
-	
 	## read arguments
 	## (no thorough checking is done)
 	pollutant <- match.arg(pollutant)
+	if (is.numeric(stations)){
+		stations <- stationsliste[stations];
+	} else {
+		stations <- match.arg(stations, several.ok = TRUE);	
+	}        
 	interval <- match.arg(interval)
 	period <- match.arg(period)
 	if (period == "free") {
 		from <- format(as.Date(from), "%d.%m.%Y")
 		to <- format(as.Date(to), "%d.%m.%Y")
 	}
-	
 	
 	## get CSV file with HTTP POST
 	params <- c("abfrageflag" = "true",
@@ -198,11 +195,11 @@ nabel <- function(pollutant = c("o3", "no2", "so2", "co", "nmvoc", "pm10", "pm1"
 			"no2" = expression(paste("Nitrogen dioxide (NO2, in ", mu, "g/m", {}^3, ")")),
 			"so2" = expression(paste("Sulfur dioxide (SO2, in ", mu, "g/m", {}^3, ")")),
 			"co" = expression(paste("Carbon monoxide (CO, in mg/m", {}^3, ")")),
+			"nmvoc" = "Non-methane volatile organic compounds (NMVOC, in ppm)",                      
 			"pm10" = expression(paste("Particulate matter (PM10, in ", mu, "g/m", {}^3, ")")),
 			"pm1" = expression(paste("Particulate matter (PM1, in ", mu, "g/m", {}^3, ")")),
 			"cpc" = expression(paste("Particulate number concentration (CPC, in 1/cm", {}^3), ")"),
-			"nmvoc" = "Non-methane volatile organic compounds (NMVOC, in ppm)",
-			"temp" = "Temperature (TEMP, in \302\260C)",
+			"temp" = "Temperature (TEMP, in \u00B0C)",
 			"prec" = "Precipitation (PREC, in mm)",
 			"rad" = expression(paste("Global radiation (RAD, in W/m", {}^2, ")")))  
 	pl <- lattice::xyplot(measurement ~ datetime, dat, groups = station,
