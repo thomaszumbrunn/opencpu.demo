@@ -18,7 +18,6 @@
 
 liveplot <- function (ticker) 
 {
-	library(ggplo2);
 	url <- paste("http://ichart.finance.yahoo.com/table.csv?s=", 
 			ticker, "&a=07&b=19&c=2004&d=07&e=13&f=2015&g=d&ignore=.csv", 
 			sep = "")
