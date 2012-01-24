@@ -6,7 +6,16 @@
   \url{http://www.bafu.admin.ch/luft/luftbelastung/blick_zurueck/datenabfrage/index.html?lang=en}
 }
 \usage{
-  nabel(pollutant, stations, interval, period, from, to)
+  nabel(pollutant = c("o3", "no2", "so2", "co", "nmvoc",
+  "pm10", "pm1", "cpc", "temp", "prec", "rad"), stations =
+  c("Bern-Bollwerk", "Lausanne-César-Roux",
+  "Lugano-Università", "Zürich-Kaserne", "Basel-Binningen",
+  "Dübendorf-Empa", "Härkingen-A1", "Sion-Aéroport-A9",
+  "Magadino-Cadenazzo", "Payerne", "Tänikon", "Lägeren",
+  "Chaumont", "Rigi-Seebodenalp", "Davos-Seehornwald",
+  "Jungfraujoch"), interval = c("hourly", "daily"), period
+  = c("day", "week", "month", "free"), from = NULL, to =
+  NULL)
 }
 \arguments{
   \item{pollutant}{pollutant or meteorological variable to
@@ -40,25 +49,41 @@
 }
 \details{
   A single \code{pollutant} or meteorological variable is
-  plotted (default is \code{o3}): \enumerate{ \item o3
-  (Ozone (O3)) \item no2 (Nitrogen dioxide (NO2)) \item so2
-  (Sulfur dioxide (SO2)) \item co (Carbon monoxide (CO))
-  \item nmvoc (Non-methane volatile organic compounds
-  (NMVOC)) \item pm10 (Particulate matter (PM10)) \item pm1
-  (Particulate matter (PM1)) \item cpc (Particulate number
-  concentration (CPC)) \item temp (Temperature (TEMP))
-  \item prec (Precipitation (PREC)) \item rad (Global
-  radiation (RAD)) }
+  plotted (default is \code{o3}):
+  \enumerate{
+    \item o3 (Ozone (O3))
+    \item no2 (Nitrogen dioxide (NO2))
+    \item so2 (Sulfur dioxide (SO2))
+    \item co (Carbon monoxide (CO))
+    \item nmvoc (Non-methane volatile organic compounds (NMVOC))
+    \item pm10 (Particulate matter (PM10))
+    \item pm1 (Particulate matter (PM1))
+    \item cpc (Particulate number concentration (CPC))
+    \item temp (Temperature (TEMP))
+    \item prec (Precipitation (PREC))
+    \item rad (Global radiation (RAD))
+  }
 
   One or several measurement \code{stations} have to be
-  included (default is to include all 16): \enumerate{
-  \item Bern-Bollwerk \item Lausanne-César-Roux \item
-  Lugano-Università \item Zürich-Kaserne \item
-  Basel-Binningen \item Dübendorf-Empa \item Härkingen-A1
-  \item Sion-Aéroport-A9 \item Magadino-Cadenazzo \item
-  Payerne \item Tänikon \item Lägeren \item Chaumont \item
-  Rigi-Seebodenalp \item Davos-Seehornwald \item
-  Jungfraujoch }
+  included (default is to include all 16):
+  \enumerate{
+    \item Bern-Bollwerk
+    \item Lausanne-César-Roux
+    \item Lugano-Università
+    \item Zürich-Kaserne
+    \item Basel-Binningen
+    \item Dübendorf-Empa
+    \item Härkingen-A1
+    \item Sion-Aéroport-A9
+    \item Magadino-Cadenazzo
+    \item Payerne
+    \item Tänikon
+    \item Lägeren
+    \item Chaumont
+    \item Rigi-Seebodenalp
+    \item Davos-Seehornwald
+    \item Jungfraujoch
+  }
 
   For the time series measurement \code{interval}, you have
   a choice between \code{hourly} and \code{daily} means
@@ -78,8 +103,7 @@
 \examples{
 ## plot daily mean NO2 concentrations at three stations
 ## from 1 January 2011 up to today
-\dontrun{
-nabel("no2",
+\dontrun{nabel("no2",
       c("Bern", "Basel", "Lausanne"),
       "daily",
       "free",
